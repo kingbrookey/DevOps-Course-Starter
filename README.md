@@ -52,3 +52,7 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+## Trello
+You’ll need to create a Trello account and a dedicated board to store the to-do items for your app.
+We’re going to be using Trello’s API to fetch and save to-do tasks. In order to call their API, you need to first [create an account](https://trello.com/signup), then generate an API key and token by following the [instructions here](https://trello.com/app-key).
