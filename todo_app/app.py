@@ -4,7 +4,6 @@ from flask import Flask, render_template, request, redirect
 from todo_app.flask_config import Config
 from todo_app.data.session_items import get_items, get_item, add_item
 from todo_app.data.trello_items import fetch_todo_items, find_list_id_by_name, create_todo_card
-
     
 app = Flask(__name__)
 app.config.from_object(Config())
@@ -41,6 +40,7 @@ def index():
 
 
 
+
 @app.route('/add')
 def add_new_card():
     # Get Board ID, API key and API token from env file
@@ -55,6 +55,7 @@ def add_new_card():
     card_id = create_todo_card(board_id, list_id, card_name, api_key, api_token)
     
     return render_template('index.html', items=board_data)
+
 
 if __name__ == '__main__':
    app.run()
