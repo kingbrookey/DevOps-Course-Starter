@@ -36,4 +36,3 @@ def find_list_id_by_name(name, data):
         if item['name'] == name:
             return item['id']
     return None
-
