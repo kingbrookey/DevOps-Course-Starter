@@ -4,7 +4,6 @@ from flask import Flask, render_template, request, redirect
 from todo_app.flask_config import Config
 from todo_app.data.session_items import get_items, get_item, add_item
 from todo_app.data.trello_items import fetch_todo_items, find_list_id_by_name, create_todo_card
-
     
 app = Flask(__name__)
 app.config.from_object(Config())
@@ -20,7 +19,6 @@ def index():
     todo_items = fetch_todo_items(list_id, api_key, api_token)
     
     return render_template('index.html', items=todo_items)
-
 
 
 @app.route('/add', methods=['GET', 'POST'])
