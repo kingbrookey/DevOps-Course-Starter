@@ -1,38 +1,32 @@
-# trello_items.py
+#trello_items.py
 
 import requests
 
-def fetch_todo_items(board_id, api_key, api_token):
-    url = f"https://api.trello.com/1/boards/{board_id}/lists?cards=open&key={api_key}&token={api_token}"
+def fetch_todo_items(list_id, api_key, api_token):
+    url = f"https://api.trello.com/1/lists/{list_id}/cards?key={api_key}&token={api_token}"
     response = requests.get(url)
     data = response.json()
     
-    #todo_items = []
-    trello_to_do = []
+    todo_items = []
     for item in data:
-        trello_to_do.append({'id': item['id'], 'name': item['name']})
-        print(trello_to_do)
-        #cards = item["cards"]
-        #todo_items.extend(cards)
-    
-    return trello_to_do
+        todo_items.append(item['name'])
+        
+    return todo_items
 
-
-def create_todo_card(board_id, list_id, card_name, api_key, api_token):
+def create_todo_card(to_do_list_id, card_name, api_key, api_token):
     url = f"https://api.trello.com/1/cards?key={api_key}&token={api_token}"
     params = {
-        'idList': list_id,
+        'idList': to_do_list_id,
         'name': card_name,
-        'idBoard': board_id
-    }
+        }
     response = requests.post(url, params=params)
     data = response.json()
     
-    return data.get('id')  # Return the ID of the created card
+    return data.get('id')
+
 
 def find_list_id_by_name(name, data):
     for item in data:
         if item['name'] == name:
             return item['id']
     return None
-
