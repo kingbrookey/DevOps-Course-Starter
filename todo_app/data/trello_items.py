@@ -45,18 +45,6 @@ def find_card_id_by_name(list_id, card_name, api_key, api_token):
             print (card_name)
             return item['id']
     return None
-'''''''''''
-def update_card_to_done(done_list_id, card_id, api_key, api_token):
-    url = f"https://api.trello.com/1/cards/{card_id}?key={api_key}&token={api_token}"
-    params = {
-        'idList': done_list_id,
-    }
-    response = requests.post(url, params=params)
-    #data = response.json()
-    
-    return
-    #return data.get('id')
-'''''''''''
 
 def update_card_to_done(done_list_id, card_id, api_key, api_token):
     # Trello API endpoint for updating a card's properties, such as moving it to a different list
@@ -71,14 +59,7 @@ def update_card_to_done(done_list_id, card_id, api_key, api_token):
     try:
         # Perform the API call using POST method to update the card
         response = requests.post(url, params=params)
-        #response.raise_for_status()  # Raise an exception if the API call was not successful
-        
-        # If the API call was successful, you can handle the response if needed
-        # For example, you can return the updated card ID or any other relevant information
-        # data = response.json()
-        # return data.get('id')
-        
-        # If you don't need any specific response, you can simply return True to indicate success
+
         return True
     
     except requests.exceptions.RequestException as e:
