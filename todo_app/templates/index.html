@@ -12,7 +12,13 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
         {% for item in items %}
-          <li class="list-group-item">{{ item }}</li>
+          <li class="list-group-item">
+            <span>{{ item.name }}</span>
+            <form action="/update" method="post" class="update-form" style="display: inline;">
+              <input type="hidden" name="item" value="{{ item.id }}">
+              <button type="submit">Update</button>
+            </form>
+          </li>
         {% endfor %}
       </ul>
     </div>
@@ -21,12 +27,6 @@
       <label for="add_item_name"><h3>Add items here</h3></label><br>
       <input type="text" id="add_item_name" name="item">
       <button type="submit">Add</button>
-    </form>
-
-    <form action="/update" method="post">
-      <label for="update_item_name"><h3>Update items here</h3></label><br>
-      <input type="text" id="update_item_name" name="item">
-      <button type="submit">Update</button>
     </form>
   </div>
 {% endblock %}
