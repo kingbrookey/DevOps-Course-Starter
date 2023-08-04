@@ -7,25 +7,26 @@
     <p class="lead">Just another to-do app.</p>
   </div>
 
-  
   <div class="row">
     <div class="col-md-12">
       <h2>Items</h2>
       <ul class="list-group mb-4">
         {% for item in items %}
-          <li class="list-group-item">{{ item.title }}</li>
+          <li class="list-group-item">
+            <span>{{ item.name }}</span>
+            <form action="/update" method="post" class="update-form" style="display: inline;">
+              <input type="hidden" name="item" value="{{ item.id }}">
+              <button type="submit">Update</button>
+            </form>
+          </li>
         {% endfor %}
       </ul>
     </div>
 
     <form action="/add" method="post">
-      <label for="item_name"> <h3> Add items here</h3></label><br>
-      <input type="text" id="item_name" name="item">
+      <label for="add_item_name"><h3>Add items here</h3></label><br>
+      <input type="text" id="add_item_name" name="item">
       <button type="submit">Add</button>
     </form>
-
   </div>
-
-
-
 {% endblock %}
