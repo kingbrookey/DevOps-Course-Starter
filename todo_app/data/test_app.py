@@ -47,9 +47,6 @@ def test_index_page(monkeypatch, client):
     assert response.status_code == 200
     assert b'Test card' in response.data  # Check for bytes content
     
-    # Additional assertions to check response content
-    #assert b'<h1>To Do</h1>' in response.data
-
 def test_add_new_card(monkeypatch, client):
     # Replace trello_service.create_todo_card method with a stub
     def stub_create_todo_card(self, list_id, card_name):
