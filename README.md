@@ -70,3 +70,5 @@ This test checks the behavior of the `done_items` property in the ViewModel clas
 - The expected and actual lists of item names are compared to ensure correctness.
 
 
+# Module exercise: Ansible
+This code contains the Ansible playbook and inventory that will allow the configuration of a managed node to run the To_Do app.
