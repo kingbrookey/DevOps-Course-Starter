@@ -1,0 +1,97 @@
+---
+- name: Configure TodoApp Environment
+  hosts: webservers
+  become: yes
+  remote_user: ec2-user
+ 
+  vars_prompt:
+    - name: trello_api_key
+      prompt: "Enter Trello API Key"
+      private: yes
+      
+    - name: trello_api_token
+      prompt: "Enter Trello API Token"
+      private: yes
+
+    - name: board_id
+      prompt: "Enter Trello Board ID"
+      private: no
+      
+    - name: to_do_list_id
+      prompt: "Enter To Do List ID"
+      private: no
+
+    - name: done_list_id
+      prompt: "Enter Done List ID"
+      private: no
+
+  tasks:
+    
+    - name: Create /opt/todoapp directory with proper permissions
+      file:
+        path: /opt/todoapp
+        state: directory
+        mode: '0755'
+      become: yes
+    
+    - name: Install git using Yum
+      ansible.builtin.yum:
+        name: git
+        state: present
+      become: yes
+    
+    - name: Install latest version of Python
+      ansible.builtin.yum:
+        name: python
+        state: latest
+      become: yes
+  
+    - name: Check if Poetry is installed
+      ansible.builtin.command:  
+        cmd: which poetry
+        register: poetry_installed
+        ignore_errors: yes  # Ignore errors if the command fails
+
+    - name: Install Poetry using curl if not installed
+      ansible.builtin.shell:
+        cmd: curl -sSL https://install.python-poetry.org | python3 -
+      when: poetry_installed.rc != 0  # Only run when Poetry is not installed
+      
+    - name: Create /opt/todoapp directory
+      ansible.builtin.file:
+        path: /opt/todoapp
+        state: directory
+        owner: ec2-user
+        group: ec2-user
+        mode: '0755'
+      become_user: root
+            
+    - name: Clone Git repository
+      ansible.builtin.git:
+        repo: https://github.com/kingbrookey/DevOps-Course-Starter.git
+        dest: /opt/todoapp
+        version: module_4
+      become_user: ec2-user
+      
+    - name: Install project dependencies using Poetry
+      ansible.builtin.command: /usr/local/bin/poetry install #Replace with the full filepath to Poetry on the managed node
+      become_user: ec2-user
+    
+    - name: Generate .env file from template
+      ansible.builtin.template:
+        src: /path/to/.env.j2  # Replace with the actual path to .env.j2 template
+        dest: /opt/todoapp/.env
+      become_user: ec2-user
+      
+    - name: Copy todoapp.service to systemd directory
+      ansible.builtin.copy:
+        src: /path/to/todoapp.service  # Replace with the actual path to todoapp.service file
+        dest: /etc/systemd/system/todoapp.service
+      become: yes
+
+    - name: Start the To-Do app systemd service
+      ansible.builtin.systemd:
+        name: todoapp
+        daemon_reload: yes
+        state: restarted
+      become: yes
