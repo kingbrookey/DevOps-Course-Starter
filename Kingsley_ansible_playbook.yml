@@ -26,14 +26,7 @@
       private: no
 
   tasks:
-    
-    - name: Create /opt/todoapp directory with proper permissions
-      file:
-        path: /opt/todoapp
-        state: directory
-        mode: '0755'
-      become: yes
-    
+  
     - name: Install git using Yum
       ansible.builtin.yum:
         name: git
@@ -59,12 +52,19 @@
         group: ec2-user
         mode: '0755'
       become_user: root
-
+      
     - name: Copy pyproject.toml to managed server
       ansible.builtin.copy:
         src: /home/ec2-user/pyproject.toml
         dest: /opt/todoapp/pyproject.toml 
       become_user: ec2-user
+
+    - name: Install project dependencies using Poetry
+      ansible.builtin.command: ~/.local/bin/poetry install
+      become: yes
+      become_user: ec2-user
+      args:
+        chdir: /opt/todoapp/
 
     - name: Generate .env file from template
       ansible.builtin.template:
@@ -92,8 +92,3 @@
         version: module_3
       become: yes
       become_user: root
-     
-    - name: Install project dependencies using Poetry
-      ansible.builtin.command: /opt/todoapp/pyproject.toml install
-      become_user: ec2-user
-        
