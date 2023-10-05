@@ -52,6 +52,15 @@
         group: ec2-user
         mode: '0755'
       become_user: root
+     
+    - name: Clone Git repository
+      ansible.builtin.git:
+        repo: 'https://github.com/kingbrookey/DevOps-Course-Starter.git'
+        dest: /opt/todoapp
+        version: module_3
+        force: yes
+      become: yes
+      become_user: root
 
     - name: Copy pyproject.toml to managed server
       ansible.builtin.copy:
@@ -83,11 +92,3 @@
         daemon_reload: yes
         state: restarted
       become: yes
-
-    #- name: Clone Git repository
-     # ansible.builtin.git:
-      #  repo: 'https://github.com/kingbrookey/DevOps-Course-Starter.git'
-       # dest: /opt/todoapp
-        #version: module_3
-      #become: yes
-      #become_user: root
