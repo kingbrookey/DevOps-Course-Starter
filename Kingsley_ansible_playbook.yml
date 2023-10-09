@@ -1,0 +1,80 @@
+---
+- name: Configure TodoApp Environment
+  hosts: webservers
+  become: yes
+  remote_user: ec2-user
+ 
+  vars_prompt:
+    - name: trello_api_key
+      prompt: "Enter Trello API Key"
+      private: yes
+      
+    - name: trello_api_token
+      prompt: "Enter Trello API Token"
+      private: yes
+
+  tasks:
+  
+    - name: Install git using Yum
+      ansible.builtin.yum:
+        name: git
+        state: present
+      become: yes
+    
+    - name: Install latest version of Python
+      ansible.builtin.yum:
+        name: python
+        state: latest
+      become: yes
+ 
+    - name: Install Poetry using curl if not installed
+      ansible.builtin.shell: curl -sSL https://install.python-poetry.org | python3 -
+      args: 
+        creates: /home/ec2-user/.local/bin/poetry
+          
+    - name: Create /opt/todoapp directory
+      ansible.builtin.file:
+        path: /opt/todoapp
+        state: directory
+        owner: ec2-user
+        group: ec2-user
+        mode: '0755'
+      become_user: root
+     
+    - name: Clone Git repository
+      ansible.builtin.git:
+        repo: 'https://github.com/kingbrookey/DevOps-Course-Starter.git'
+        dest: /opt/todoapp
+        version: module_3
+        force: yes
+      become: yes
+      
+    - name: Copy pyproject.toml to managed server
+      ansible.builtin.copy:
+        src: /home/ec2-user/pyproject.toml
+        dest: /opt/todoapp/pyproject.toml 
+
+    - name: Install project dependencies using Poetry
+      ansible.builtin.command: ~/.local/bin/poetry install
+      become: yes
+      args:
+        chdir: /opt/todoapp/
+
+    - name: Generate .env file from template
+      ansible.builtin.template:
+        src: /home/ec2-user/.env.template
+        dest: /opt/todoapp/.env
+      become_user: root
+
+    - name: Copy todoapp.service to systemd directory
+      ansible.builtin.copy:
+        src: /home/ec2-user/todoapp.service
+        dest: /etc/systemd/system/todoapp.service
+      become: yes
+
+    - name: Start the To-Do app systemd service
+      ansible.builtin.systemd:
+        name: todoapp
+        daemon_reload: yes
+        state: restarted
+      become: yes

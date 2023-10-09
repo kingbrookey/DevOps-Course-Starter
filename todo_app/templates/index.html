@@ -8,25 +8,61 @@
   </div>
 
   <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
+    <div class="col-md-4">
+      <h2>To Do</h2>
       <ul class="list-group mb-4">
-        {% for item in items %}
+        {% for item in todo_items.items %}
           <li class="list-group-item">
-            <span>{{ item.name }}</span>
-            <form action="/update" method="post" class="update-form" style="display: inline;">
-              <input type="hidden" name="item" value="{{ item.id }}">
-              <button type="submit">Update</button>
-            </form>
+            <div class="d-flex align-items-center justify-content-between">
+              <span>{{ item.name }}</span>
+              <form action="/update" method="post" class="update-form">
+                <input type="hidden" name="item" value="{{ item.id }}">
+                <button type="submit" class="btn btn-secondary">Update</button>
+              </form>
+            </div>
           </li>
         {% endfor %}
       </ul>
     </div>
 
-    <form action="/add" method="post">
-      <label for="add_item_name"><h3>Add items here</h3></label><br>
-      <input type="text" id="add_item_name" name="item">
-      <button type="submit">Add</button>
-    </form>
+    <div class="col-md-4">
+      <h2>Doing</h2>
+      <ul class="list-group mb-4">
+        {% for item in doing_items.items %}
+          <li class="list-group-item">
+            <div class="d-flex align-items-center justify-content-between">
+              <span>{{ item.name }}</span>
+              <form action="/update" method="post" class="update-form">
+                <input type="hidden" name="item" value="{{ item.id }}">
+                <button type="submit" class="btn btn-secondary">Update</button>
+              </form>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="col-md-4">
+      <h2>Done</h2>
+      <ul class="list-group mb-4">
+        {% for item in done_items.items %}
+          <li class="list-group-item">
+            <div class="d-flex align-items-center justify-content-between">
+              <span>{{ item.name }}</span>
+              <form action="/update" method="post" class="update-form">
+                <input type="hidden" name="item" value="{{ item.id }}">
+                <button type="submit" class="btn btn-secondary">Update</button>
+              </form>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
+
+  <form action="/add" method="post">
+    <label for="add_item_name"><h3>Add items here</h3></label><br>
+    <input type="text" id="add_item_name" name="item">
+    <button type="submit" class="btn btn-primary">Add</button>
+  </form>
 {% endblock %}

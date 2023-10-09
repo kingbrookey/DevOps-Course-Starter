@@ -56,3 +56,19 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 ## Trello
 You’ll need to create a Trello account and a dedicated board to store the to-do items for your app.
 We’re going to be using Trello’s API to fetch and save to-do tasks. In order to call their API, you need to first [create an account](https://trello.com/signup), then generate an API key and token by following the [instructions here](https://trello.com/app-key).
+
+### Test Details
+
+The tests cover various aspects of the To-Do App's functionality. Here's an example of one of the tests:
+
+#### `test_done_items_property`
+
+This test checks the behavior of the `done_items` property in the ViewModel class.
+
+- It creates instances of `Item` with various statuses and passes them to a `ViewModel` instance.
+- The test verifies that the `done_items`, `to_do_items`, and `doing_items` properties of the `ViewModel` return the correct items based on their statuses.
+- The expected and actual lists of item names are compared to ensure correctness.
+
+
+# Module exercise: Ansible
+This code contains the Ansible playbook and inventory that will allow the configuration of a managed node to run the To_Do app.
