@@ -1,0 +1,13 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "5000:80"
+    env_file:
+      - ./.env
+    volumes:
+      - ./todo_app:/app/todo_app
