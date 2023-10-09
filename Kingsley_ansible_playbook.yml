@@ -48,8 +48,7 @@
         version: module_3
         force: yes
       become: yes
-      become_user: root
-
+      
     - name: Copy pyproject.toml to managed server
       ansible.builtin.copy:
         src: /home/ec2-user/pyproject.toml
