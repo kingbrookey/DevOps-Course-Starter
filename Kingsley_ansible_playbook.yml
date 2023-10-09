@@ -13,18 +13,6 @@
       prompt: "Enter Trello API Token"
       private: yes
 
-    - name: board_id
-      prompt: "Enter Trello Board ID"
-      private: no
-      
-    - name: to_do_list_id
-      prompt: "Enter To Do List ID"
-      private: no
-
-    - name: done_list_id
-      prompt: "Enter Done List ID"
-      private: no
-
   tasks:
   
     - name: Install git using Yum
@@ -70,7 +58,6 @@
     - name: Install project dependencies using Poetry
       ansible.builtin.command: ~/.local/bin/poetry install
       become: yes
-      become_user: ec2-user
       args:
         chdir: /opt/todoapp/
 
