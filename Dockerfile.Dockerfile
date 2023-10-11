@@ -21,8 +21,9 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock /app/
 
 # Install project dependencies using Poetry
-RUN /venv/bin/pip install poetry
-RUN /venv/bin/poetry install
+RUN ~/.local/bin/pip install poetry
+RUN ~/.local/bin/poetry install
+RUN ~/.local/bin/poetry add gunicorn
 
 # Copy the entire application code
 COPY . /app/
@@ -34,7 +35,7 @@ FROM base as production
 ENV FLASK_ENV=production
 
 # Configure for production (use Gunicorn)
-ENTRYPOINT ["poetry", "run", "gunicorn", "--bind", "0.0.0.0:5000", "todo_app.app:create_app()"]
+ENTRYPOINT ["~/.local/bin/poetry", "run", "flask", "run", "gunicorn", "--bind", "0.0.0.0:5000", "todo_app.app:create_app()"]
 
 # Expose port 5000 for documentation
 EXPOSE 5000
