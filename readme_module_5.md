@@ -16,7 +16,7 @@ To run the application in a development environment:
 
 1. Build the development Docker image:
    ```bash
-   docker build -t to_do_app .
+  docker build --target development --tag todo-app:dev .
 
 
 Create an .env file in the project root and set the environment variables required for your application. For example:
