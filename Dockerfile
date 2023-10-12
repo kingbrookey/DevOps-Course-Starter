@@ -35,7 +35,7 @@ FROM base as production
 ENV FLASK_ENV=production
 
 # Configure for production (use Gunicorn)
-ENTRYPOINT ["/venv/bin/poetry", "run", "flask", "run", "gunicorn", "--bind", "0.0.0.0:5000", "todo_app.app:create_app()"]
+ENTRYPOINT ["/venv/bin/poetry", "run", "gunicorn", "--bind", "0.0.0.0:5000", "todo_app.app:create_app()"]
 
 # Expose port 5000 for documentation
 EXPOSE 5000
