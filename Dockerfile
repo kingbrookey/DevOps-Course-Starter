@@ -45,3 +45,4 @@ FROM base as development
 
 # Set environment variables
 ENV FLASK_ENV=development
+ENTRYPOINT [ "/venv/bin/poetry", "run", "flask", "run", "--host", "0.0.0.0" ]
