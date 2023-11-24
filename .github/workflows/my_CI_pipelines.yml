@@ -5,10 +5,10 @@ on:
     branches:
       - '*'
     paths-ignore:
-      - '**/*.md'  # Ignore changes to Markdown files, adjust as needed
+      - '**/*.md'  # Ignore changes to Markdown files
   pull_request:
     paths-ignore:
-      - '**/*.md'  # Ignore changes to Markdown files, adjust as needed
+      - '**/*.md'  # Ignore changes to Markdown files
 
 jobs:
   build:
