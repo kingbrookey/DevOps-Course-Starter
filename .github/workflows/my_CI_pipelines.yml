@@ -1,0 +1,35 @@
+name: Continuous Integration Dockerized Tests
+
+on:
+  push:
+    branches:
+      - '*'
+    paths-ignore:
+      - '**/*.md'  # Ignore changes to Markdown files, adjust as needed
+  pull_request:
+    paths-ignore:
+      - '**/*.md'  # Ignore changes to Markdown files, adjust as needed
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    
+    services:
+      docker:
+        image: docker:latest
+        ports:
+          - 2375:2375
+
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image for Tests
+        run: docker build --target test --tag my-test-image .
+
+      - name: Run Unit Tests
+        run: docker run my-test-image pytest -k "unit"
+
+      - name: Run Integration Tests
+        run: docker run my-test-image pytest -k "integration"
