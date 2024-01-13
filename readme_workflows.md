@@ -21,8 +21,7 @@ To automate the testing process with GitHub Actions, you need to create a workfl
     Inside the `.github/workflows` folder, create a new file, for example, `dockerized-tests.yml`.
 
 2. **Edit the Workflow File:**
-
-    Open `dockerized-tests.yml` in a text editor and add the following content:
+You can find and edit [the existing workflow file here](./.github/workflows/my_CI_pipeline.yml)   
 
     ```yaml
     name: Continuous Integration Dockerized Tests
@@ -43,11 +42,6 @@ To automate the testing process with GitHub Actions, you need to create a workfl
         name: Build and Test
         runs-on: ubuntu-latest
         
-        services:
-          docker:
-            image: docker:latest
-            ports:
-              - 2375:2375
 
         steps:
           - name: Checkout Code Repository
