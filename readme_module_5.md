@@ -48,9 +48,11 @@ docker run --env-file ./.env -p 80:5000 todo-app:prod
 ```
 4. Access the production application at http://localhost.
 
-Additional Notes
+### Additional Notes
 The development container uses Flask's development server with hot-reloading for quick code changes during development.
 The production container uses Gunicorn to run the application, suitable for production deployments.
 Please ensure that you follow best practices for managing secrets and environment variables, especially in production environments.
 
-Happy coding!
+[click here to read the azure deployment readme](./readme_azure_deployment_steps.md)
+
+#### Happy coding!
