@@ -53,4 +53,6 @@ The development container uses Flask's development server with hot-reloading for
 The production container uses Gunicorn to run the application, suitable for production deployments.
 Please ensure that you follow best practices for managing secrets and environment variables, especially in production environments.
 
+[click here to read the azure deployment readme](./readme_azure_deployment_steps.md)
+
 Happy coding!
