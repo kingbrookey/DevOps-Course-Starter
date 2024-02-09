@@ -61,3 +61,13 @@ curl -dH -X POST "https://\$<deployment_username>:<deployment_password>@<webapp_
 ```
 
 This should return a link to a log-stream relating to the re-pulling of the image and restarting the app.
+
+### Additional notes
+Here is the address for the current app deployment
+
+```bash
+https://kingsmod8todoapp.azurewebsites.net/
+```
+If you wish to make updates to the app, just steps 1 & 5 are necessary once the app has been set up in Azure.
+
+#### Happy coding!
