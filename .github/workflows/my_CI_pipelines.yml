@@ -56,4 +56,5 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/my-image:${{ github.sha }}
       
       - name: Get webhook url and run curl command
-        - run: curl -dH --fail -X POST '${{ secrets.WEBHOOK_URL }}'
+        run: |
+          curl -dH --fail -X POST '${{ secrets.WEBHOOK_URL }}'
