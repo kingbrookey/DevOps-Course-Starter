@@ -35,7 +35,7 @@ jobs:
   publish:
     name: Publish Docker Image
     needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/module_9'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     
     steps:
