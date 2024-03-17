@@ -1,4 +1,4 @@
-from .mongo_items import ItemService # Import ItemService from mongo_items module
+from .mongo_items import ItemService, Item  # Import both ItemService and Item from mongo_items module
 
 class ViewModel:
     def __init__(self, item_service):
