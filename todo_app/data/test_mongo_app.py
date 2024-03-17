@@ -41,15 +41,12 @@ class StubItemService:
         # Stub the update_item_status method
         pass
 
-
-
-    def update_item_status(self, item_id, new_status):
-        # Stub the update_item_status method
-        pass
-
 def test_index_page(client):
+    # Create a StubItemService instance for testing
+    item_service = StubItemService()
+
     # Replace the ItemService with a stub for testing
-    app.ItemService = StubItemService()
+    create_app().ItemService = item_service
 
     # Make a request to the index page
     response = client.get('/')
@@ -58,8 +55,11 @@ def test_index_page(client):
     assert b'Test card' in response.data  # Check for bytes content
 
 def test_add_new_card(client):
+    # Create a StubItemService instance for testing
+    item_service = StubItemService()
+
     # Replace the ItemService with a stub for testing
-    app.ItemService = StubItemService()
+    create_app().ItemService = item_service
 
     # Make a POST request to add a new card
     response = client.post('/add', data={'item': 'New Test Card'})
@@ -68,8 +68,11 @@ def test_add_new_card(client):
     assert response.headers['Location'] == '/'
 
 def test_update_card_to_done(client):
+    # Create a StubItemService instance for testing
+    item_service = StubItemService()
+
     # Replace the ItemService with a stub for testing
-    app.ItemService = StubItemService()
+    create_app().ItemService = item_service
 
     # Make a POST request to update a card to 'Done'
     response = client.post('/update', data={'item': '456'})
