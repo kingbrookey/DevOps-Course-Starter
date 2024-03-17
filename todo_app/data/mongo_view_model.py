@@ -1,3 +1,4 @@
+# test comments in view model.py
 class ViewModel:
     def __init__(self, item_service):
         self._item_service = item_service
