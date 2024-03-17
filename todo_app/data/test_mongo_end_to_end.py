@@ -32,7 +32,8 @@ def client():
             yield client
 
         # Drop the test database at the end of the test
-        test_db.drop_collection('items')  # Drop only the collection
+        if 'items' in test_db.list_collection_names():
+            test_db.drop_collection('items')  # Drop only the collection
     
 
 def test_end_to_end(client):
