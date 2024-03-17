@@ -2,7 +2,7 @@ import os
 import pytest
 from flask import session
 from todo_app.data.mongo_view_model import ItemService, ViewModel
-from todo_app.mongo_app import app
+from todo_app.mongo_app import create_app
 from dotenv import load_dotenv, find_dotenv
 from pymongo import MongoClient
 
@@ -13,7 +13,7 @@ def client():
     load_dotenv(file_path, override=True)
 
     # Create the new app.
-    test_app = app.create_app()
+    test_app = create_app()
 
     # Use the app to create a test_client that can be used in our tests.
     with test_app.test_client() as client:
