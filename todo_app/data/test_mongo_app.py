@@ -2,7 +2,7 @@ import os
 import pytest
 from flask import session
 from todo_app.data.mongo_view_model import ItemService, ViewModel
-from todo_app import app
+from todo_app.mongo_app import app
 from dotenv import load_dotenv, find_dotenv
 from pymongo import MongoClient
 
