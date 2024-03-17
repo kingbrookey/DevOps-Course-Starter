@@ -18,8 +18,11 @@ def client():
         # Get the test database reference
         test_db = mongo_client[test_db_name]
 
-        # Set the ItemService database name to the test database
-        app.ItemService = ItemService(database_name=test_db_name)
+        # Set the MongoDB connection string
+        mongodb_connection_string = "mongodb://localhost:27017"
+
+        # Set the ItemService database name and connection string
+        app.ItemService = ItemService(mongodb_connection_string, database_name=test_db_name)
 
         # Use the app to create a test_client that can be used in our tests.
         test_app = app.create_app()
