@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+from pymongo import MongoClient, UpdateOne
 import os
 
 # MongoDB connection string and database name
@@ -22,7 +22,7 @@ def get_items():
     Returns:
         list: The list of saved items.
     """
-    return list(collection.find() or _DEFAULT_ITEMS.copy())
+    return list(collection.find({}, {'_id': 0}))
 
 def get_item(id):
     """
@@ -34,7 +34,7 @@ def get_item(id):
     Returns:
         item: The saved item, or None if no items match the specified ID.
     """
-    return collection.find_one({'id': int(id)})
+    return collection.find_one({'id': int(id)}, {'_id': 0})
 
 def add_item(title, status='Not Started'):
     """
@@ -47,7 +47,11 @@ def add_item(title, status='Not Started'):
     Returns:
         item: The saved item.
     """
-    item = { 'id': collection.count_documents({}) + 1, 'title': title, 'status': status }
+    # Find the maximum ID in the collection and increment by 1
+    max_id = collection.find_one(sort=[('id', -1)])['id']
+    new_id = max_id + 1 if max_id else 1
+    
+    item = { 'id': new_id, 'title': title, 'status': status }
     collection.insert_one(item)
     return item
 
@@ -58,5 +62,8 @@ def save_item(item):
     Args:
         item: The item to save.
     """
-    collection.replace_one({'id': item['id']}, item)
+    # Use item ID as the filter to update
+    filter_query = {'id': item['id']}
+    update_query = {'$set': {'title': item['title'], 'status': item['status']}}
+    collection.update_one(filter_query, update_query)
     return item

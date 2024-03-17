@@ -1,12 +1,15 @@
-from .mongo_items import ItemService, Item  # Import both ItemService and Item from mongo_items module
+from .mongo_items import ItemService, Item  # Import both ItemService and Item from mongo_items.py
 
 class ViewModel:
     def __init__(self, item_service):
         self._item_service = item_service
+        self._items = None  # Cache fetched items
 
     @property
     def items(self):
-        return self._item_service.fetch_todo_items()
+        if self._items is None:  # Fetch items only once
+            self._items = self._item_service.fetch_todo_items()
+        return self._items
 
     @property
     def done_items(self):
