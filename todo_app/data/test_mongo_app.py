@@ -1,10 +1,10 @@
 import os
 import pytest
-from flask import session
-from todo_app.data.mongo_view_model import ItemService, ViewModel
+from flask import Flask
+from todo_app.data.mongo_view_model import ItemService
 from todo_app.mongo_app import create_app
 from dotenv import load_dotenv, find_dotenv
-from pymongo import MongoClient
+from unittest.mock import patch
 
 @pytest.fixture
 def client():
@@ -19,63 +19,53 @@ def client():
     with test_app.test_client() as client:
         yield client
 
-
-class StubItemService:
-    def __init__(self):
-        pass
-
-    def fetch_todo_items(self, list_name):
-        # Return stubbed data for fetch_todo_items
-        if list_name == 'To Do':
-            return [{'_id': 456, 'name': 'Test card', 'status': 'To Do'}]
-        elif list_name == 'Doing':
-            return [{'_id': 789, 'name': 'Test card 2', 'status': 'Doing'}]
-        elif list_name == 'Done':
-            return [{'_id': 123, 'name': 'Test card 3', 'status': 'Done'}]
-
-    def create_todo_item(self, list_name, item_name):
-        # Stub the create_todo_item method
-        pass
-
-    def update_item_status(self, item_id, new_status):
-        # Stub the update_item_status method
-        pass
-
 def test_index_page(client):
-    # Create a StubItemService instance for testing
-    item_service = StubItemService()
+    with patch('todo_app.mongo_app.create_app') as mock_create_app:
+        # Create a StubItemService instance for testing
+        item_service = StubItemService()
 
-    # Replace the ItemService with a stub for testing
-    create_app().ItemService = item_service
+        # Mock the return value of create_app to return a Flask app instance
+        mock_create_app.return_value = Flask(__name__)
 
-    # Make a request to the index page
-    response = client.get('/')
+        # Replace the ItemService with a stub for testing
+        mock_create_app.return_value.ItemService = item_service
 
-    assert response.status_code == 200
-    assert b'Test card' in response.data  # Check for bytes content
+        # Make a request to the index page
+        response = client.get('/')
+
+        assert response.status_code == 200
+        assert b'Test card' in response.data  # Check for bytes content
 
 def test_add_new_card(client):
-    # Create a StubItemService instance for testing
-    item_service = StubItemService()
+    with patch('todo_app.mongo_app.create_app') as mock_create_app:
+        # Create a StubItemService instance for testing
+        item_service = StubItemService()
 
-    # Replace the ItemService with a stub for testing
-    create_app().ItemService = item_service
+        # Mock the return value of create_app to return a Flask app instance
+        mock_create_app.return_value = Flask(__name__)
 
-    # Make a POST request to add a new card
-    response = client.post('/add', data={'item': 'New Test Card'})
+        # Replace the ItemService with a stub for testing
+        mock_create_app.return_value.ItemService = item_service
 
-    assert response.status_code == 302  # Redirect
-    assert response.headers['Location'] == '/'
+        # Make a POST request to add a new card
+        response = client.post('/add', data={'item': 'New Test Card'})
+
+        assert response.status_code == 302  # Redirect
+        assert response.headers['Location'] == '/'
 
 def test_update_card_to_done(client):
-    # Create a StubItemService instance for testing
-    item_service = StubItemService()
+    with patch('todo_app.mongo_app.create_app') as mock_create_app:
+        # Create a StubItemService instance for testing
+        item_service = StubItemService()
 
-    # Replace the ItemService with a stub for testing
-    create_app().ItemService = item_service
+        # Mock the return value of create_app to return a Flask app instance
+        mock_create_app.return_value = Flask(__name__)
 
-    # Make a POST request to update a card to 'Done'
-    response = client.post('/update', data={'item': '456'})
+        # Replace the ItemService with a stub for testing
+        mock_create_app.return_value.ItemService = item_service
 
-    assert response.status_code == 302  # Redirect
-    assert response.headers['Location'].startswith('/')  # Check if it starts with the correct URL
+        # Make a POST request to update a card to 'Done'
+        response = client.post('/update', data={'item': '456'})
+
+        assert response.status_code == 302  # Redirect
+        assert response.headers['Location'].startswith('/')  # Check if it starts with the correct URL
