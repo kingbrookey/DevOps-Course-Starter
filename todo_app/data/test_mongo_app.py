@@ -19,6 +19,7 @@ def client():
     with test_app.test_client() as client:
         yield client
 
+
 class StubItemService:
     def __init__(self):
         pass
@@ -35,6 +36,12 @@ class StubItemService:
     def create_todo_item(self, list_name, item_name):
         # Stub the create_todo_item method
         pass
+
+    def update_item_status(self, item_id, new_status):
+        # Stub the update_item_status method
+        pass
+
+
 
     def update_item_status(self, item_id, new_status):
         # Stub the update_item_status method
