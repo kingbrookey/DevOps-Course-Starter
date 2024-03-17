@@ -1,4 +1,5 @@
-# test comments in view model.py
+from .mongo_items import ItemService # Import ItemService from mongo_items module
+
 class ViewModel:
     def __init__(self, item_service):
         self._item_service = item_service
