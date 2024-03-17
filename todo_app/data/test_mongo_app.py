@@ -49,7 +49,7 @@ def test_index_page(client):
         mock_create_app.return_value = Flask(__name__)
 
         # Replace the ItemService with a stub for testing
-        mock_create_app.return_value.ItemService = item_service
+        mock_create_app.return_value.config['ItemService'] = item_service
 
         # Make a request to the index page
         response = client.get('/')
