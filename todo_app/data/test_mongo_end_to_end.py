@@ -42,12 +42,15 @@ def test_end_to_end(client):
     assert response.status_code == 302  # Ensure redirect
     assert response.headers['Location'] == '/'  # Ensure redirect to home page
 
+    # Retrieve the ID of the newly added item
+    new_item_id = response.headers['Location'].split('/')[-1]
+
     # Verify that the new item appears in the "To Do" list
     response = client.get('/')
     assert b'New Test Item' in response.data  # Ensure item is displayed
 
     # Update the status of the item
-    response = client.post('/update', data={'item': 'New Test Item ID'})
+    response = client.post('/update', data={'item': new_item_id})
     assert response.status_code == 302  # Ensure redirect
     assert response.headers['Location'] == '/'  # Ensure redirect to home page
 
