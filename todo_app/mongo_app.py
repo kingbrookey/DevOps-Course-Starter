@@ -1,7 +1,8 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for
 from todo_app.flask_config import Config
-from todo_app.data.mongo_view_model import ItemService, ViewModel
+from todo_app.data.mongo_view_model import ViewModel
+from todo_app.data.mongo_items import ItemService
 
 def create_app():
     app = Flask(__name__)

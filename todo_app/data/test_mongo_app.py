@@ -1,7 +1,7 @@
 import os
 import pytest
 from flask import Flask
-from todo_app.data.mongo_view_model import ItemService
+from todo_app.data.mongo_items import ItemService
 from todo_app.mongo_app import create_app
 from dotenv import load_dotenv, find_dotenv
 from unittest.mock import patch

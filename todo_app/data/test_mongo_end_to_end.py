@@ -1,5 +1,5 @@
 import pytest
-from todo_app.data.mongo_view_model import ItemService
+from todo_app.data.mongo_items import ItemService
 from todo_app.mongo_app import create_app
 from dotenv import load_dotenv, find_dotenv
 from pymongo import MongoClient
