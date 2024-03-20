@@ -1,6 +1,6 @@
 import pytest
-from todo_app.data.mongo_items import ItemService
-from todo_app.mongo_app import create_app
+from todo_app.data.items import ItemService
+from todo_app.app import create_app
 from dotenv import load_dotenv, find_dotenv
 from pymongo import MongoClient
 
@@ -22,7 +22,7 @@ def client():
         mongodb_connection_string = "mongodb://localhost:27017"
 
         # Set the ItemService database name and connection string
-        app.ItemService = ItemService(mongodb_connection_string, database_name=test_db_name)
+        create_app.ItemService = ItemService(mongodb_connection_string, database_name=test_db_name)
 
         # Use the app to create a test_client that can be used in our tests.
         test_app = create_app()

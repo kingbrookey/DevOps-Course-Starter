@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from bson import ObjectId
 import os
 
 class Item:
@@ -15,6 +16,15 @@ class ItemService:
     def _connect_to_mongodb(self):
         client = MongoClient(self.mongodb_connection_string)
         return client[self.database_name]
+
+    def get_list_id(self, list_name):
+        db = self._connect_to_mongodb()
+        collection = db['items']
+        list_doc = collection.find_one({'list': list_name})
+        if list_doc:
+            return list_doc['list_id']
+        else:
+            return None
 
     def fetch_todo_items(self, list_name):
         db = self._connect_to_mongodb()
@@ -37,5 +47,6 @@ class ItemService:
     def update_item_status(self, item_id, new_status):
         db = self._connect_to_mongodb()
         collection = db['items']
-        result = collection.update_one({'id': item_id}, {'$set': {'status': new_status}})
-        return result.modified_count > 0
+        result = collection.update_one({'_id': ObjectId(item_id)}, {'$set': {'status': new_status}})
+
+

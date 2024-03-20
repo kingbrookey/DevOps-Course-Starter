@@ -1,8 +1,8 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for
 from todo_app.flask_config import Config
-from todo_app.data.mongo_view_model import ViewModel
-from todo_app.data.mongo_items import ItemService
+from todo_app.data.view_model import ViewModel
+from todo_app.data.items import ItemService
 
 def create_app():
     app = Flask(__name__)
@@ -40,6 +40,6 @@ def create_app():
     def update_card_to_done():
         card_id_to_update = request.form.get('item')
         item_service.update_item_status(card_id_to_update, 'Done')
+        # Redirect back to the index page after updating the item
         return redirect(url_for('index')) 
-
     return app

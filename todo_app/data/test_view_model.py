@@ -1,6 +1,6 @@
 import pytest
-from todo_app.data.mongo_view_model import ViewModel
-from todo_app.data.mongo_items import Item
+from todo_app.data.view_model import ViewModel
+from todo_app.data.items import Item
 
 
 def test_done_items_property():

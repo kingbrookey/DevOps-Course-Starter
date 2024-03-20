@@ -1,8 +1,8 @@
 import os
 import pytest
 from flask import Flask
-from todo_app.data.mongo_items import ItemService
-from todo_app.mongo_app import create_app
+from todo_app.data.items import ItemService
+from todo_app.app import create_app
 from dotenv import load_dotenv, find_dotenv
 from unittest.mock import patch
 
@@ -41,15 +41,15 @@ def client():
         yield client
 
 def test_index_page(client):
-    with patch('todo_app.mongo_app.create_app') as mock_create_app:
+    with patch('todo_app.app.create_app') as mock_app:
         # Create a StubItemService instance for testing
         item_service = StubItemService()
 
-        # Mock the return value of create_app to return a Flask app instance
-        mock_create_app.return_value = Flask(__name__)
+        # Mock the return value of app to return a Flask app instance
+        mock_app.return_value = Flask(__name__)
 
         # Replace the ItemService with a stub for testing
-        mock_create_app.return_value.config['ItemService'] = item_service
+        mock_app.return_value.config['ItemService'] = item_service
 
         # Make a request to the index page
         response = client.get('/')
