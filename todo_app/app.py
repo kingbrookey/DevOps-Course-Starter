@@ -35,11 +35,13 @@ def create_app():
         card_name = request.form.get('item')
         item_service.create_todo_item('To Do', card_name)
         return redirect('/')
-
+        
     @app.route('/update', methods=['POST'])
     def update_card_to_done():
         card_id_to_update = request.form.get('item')
         item_service.update_item_status(card_id_to_update, 'Done')
+        item_service.move_item_to_done_list(card_id_to_update)  # Move item to Done list
         # Redirect back to the index page after updating the item
-        return redirect(url_for('index')) 
+        return redirect(url_for('index'))
+
     return app
