@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+import pymongo
 from bson import ObjectId
 
 class Item:
@@ -9,7 +9,7 @@ class Item:
 
 class ItemService:
     def __init__(self, mongodb_connection_string, database_name):
-        self.client = MongoClient(mongodb_connection_string)
+        self.client = pymongo.MongoClient(mongodb_connection_string)
         self.db = self.client[database_name]
         self.collection = self.db['items']
 
