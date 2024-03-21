@@ -33,9 +33,9 @@ def create_app():
     @app.route('/add', methods=['POST'])
     def add_new_card():
         card_name = request.form.get('item')
-        item_service.create_todo_item('To Do', card_name)
+        card_id = item_service.create_todo_item('To Do', card_name)
         return redirect('/')
-        
+
     @app.route('/update', methods=['POST'])
     def update_card_to_done():
         card_id_to_update = request.form.get('item')
