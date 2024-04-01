@@ -33,7 +33,3 @@ class ItemService:
     def move_item_to_done_list(self, item_id):
         result = self.collection.update_one({'_id': ObjectId(item_id)}, {'$set': {'list': 'Done'}})
         return result.modified_count > 0
-
-    def get_list_id(self, list_name):
-        list_doc = self.collection.find_one({'list': list_name}, {'_id': 1})
-        return str(list_doc['_id']) if list_doc else None
