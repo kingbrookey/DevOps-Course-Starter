@@ -1,6 +1,7 @@
 import pytest
-from todo_app.data.trello_items import Item
 from todo_app.data.view_model import ViewModel
+from todo_app.data.items import Item
+
 
 def test_done_items_property():
     # Arrange: Create instances of Item with various statuses
@@ -13,6 +14,7 @@ def test_done_items_property():
         Item("6", "Task 6", "To Do"),
         Item("7", "Task 7", "Doing"),
     ]
+
     view_model = ViewModel(items)
     
     # Act: Get the items property
