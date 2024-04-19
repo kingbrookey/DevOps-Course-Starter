@@ -31,6 +31,20 @@ jobs:
       - name: Run Unit and Integration Tests
         run: docker run my-test-image
 
+  security_check:
+    name: Dependency Security Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image for Dependency Check
+        run: docker build --target test --tag my-test-image .
+
+      - name: Run Dependency Vulnerability Check
+        run: docker run my-test-image poetry run safety check
+        continue-on-error: true  # Allows the step to pass even if there are vulnerabilities
 
   publish:
     name: Publish Docker Image
