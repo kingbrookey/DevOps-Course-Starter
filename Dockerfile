@@ -50,6 +50,5 @@ ENTRYPOINT [ "/venv/bin/poetry", "run", "flask", "run", "--host", "0.0.0.0" ]
 # Testing stage
 FROM base as test
 
-# Set environment variables
-ENV FLASK_ENV=test
-ENTRYPOINT [ "/venv/bin/poetry", "run","pytest"]
+# Activate virtual environment and run tests
+ENTRYPOINT ["/bin/bash", "-c", "source /venv/bin/activate && poetry run pytest"]
