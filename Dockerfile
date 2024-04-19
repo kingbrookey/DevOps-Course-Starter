@@ -52,7 +52,9 @@ FROM base as test
 
 # Set environment variables
 ENV FLASK_ENV=test
-ENTRYPOINT ["/venv/bin/poetry", "run", "pytest", "gunicorn", "--bind", "0.0.0.0:5000", "todo_app.app:create_app()"]
 
-# Expose port 5000 for documentation
-EXPOSE 5000
+# Run dependency vulnerability check using safety
+RUN /venv/bin/poetry run safety check
+
+# Run tests using pytest
+ENTRYPOINT ["/venv/bin/poetry", "run", "pytest"]
