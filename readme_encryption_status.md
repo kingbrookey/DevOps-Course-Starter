@@ -6,6 +6,9 @@ Our todo_application leverages Azure Cosmos DB as its database solution. We prio
 
 **Encryption in transit:** Cosmos DB ensures secure communication between the application and the database using Transport Layer Security (TLS) encryption.
 
-**Note:** While we do not currently utilize Azure Key Vault integration, we are actively evaluating its implementation to further enhance our encryption key management strategy.
+**Dependency Vulnerability Checks:**
+We perform regular dependency vulnerability checks to ensure the security of our application. This includes utilizing tools like safety to scan for known security vulnerabilities in our dependencies.
+
+**Note:** While we do not currently utilize Azure Key Vault integration, we are evaluating its implementation to further enhance our encryption key management strategy.
 
 For detailed information on encryption features and best practices in Cosmos DB, refer to the [official Azure Cosmos DB documentation](https://learn.microsoft.com/en-us/azure/cosmos-db/database-encryption-at-resturl).
