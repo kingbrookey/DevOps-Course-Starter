@@ -43,7 +43,7 @@ jobs:
         run: docker build --target test --tag my-test-image .
 
       - name: Run Dependency Vulnerability Check
-        run: docker run --entrypoint poetry my-test-image run safety check
+        run: docker run /venv/bin/poetry run safety check
         continue-on-error: true  # Allows the step to pass even if there are vulnerabilities
 
   publish:
