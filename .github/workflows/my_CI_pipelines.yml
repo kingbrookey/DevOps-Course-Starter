@@ -40,7 +40,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker Image for Dependency Check
-        run: docker build --target test --tag my-test-image .    
+        run: docker build --target securityscan --tag todo-app:security .
+             docker run todo-app:security
+            # docker build --target test --tag my-test-image .    
         continue-on-error: true  # Allows the step to pass even if there are vulnerabilities
 
   publish:
