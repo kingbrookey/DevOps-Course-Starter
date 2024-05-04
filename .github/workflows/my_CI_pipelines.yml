@@ -41,7 +41,9 @@ jobs:
 
       - name: Build Docker Image for Dependency Check
         run: docker build --target securityscan --tag todo-app:security .
-             docker run todo-app:security
+      
+      - name: Run Security checks
+        run:  docker run todo-app:security
             # docker build --target test --tag my-test-image .    
         continue-on-error: true  # Allows the step to pass even if there are vulnerabilities
 
