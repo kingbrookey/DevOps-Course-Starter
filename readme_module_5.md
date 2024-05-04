@@ -55,4 +55,7 @@ Please ensure that you follow best practices for managing secrets and environmen
 
 [click here to read the azure deployment readme](./readme_azure_deployment_steps.md)
 
+
+[and here to read about the encryption used in the To do application](./readme_encryption_status.md)
+
 #### Happy coding!

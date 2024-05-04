@@ -45,11 +45,16 @@ FROM base as development
 
 # Set environment variables
 ENV FLASK_ENV=development
-ENTRYPOINT [ "/venv/bin/poetry", "run", "flask", "run", "--host", "0.0.0.0" ]
+ENTRYPOINT [ "/venv/bin/poetry", "run", "flask", "run", "--host", "0.0.0.0" ] move
 
 # Testing stage
 FROM base as test
 
 # Set environment variables
 ENV FLASK_ENV=test
-ENTRYPOINT [ "/venv/bin/poetry", "run","pytest"]
+
+# Run tests using pytest
+ENTRYPOINT ["/venv/bin/poetry", "run", "pytest"]
+
+FROM test as securityscan
+ENTRYPOINT ["/venv/bin/poetry", "run", "safety", "check"]
