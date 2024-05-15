@@ -94,7 +94,7 @@ jobs:
           SPN_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           SPN_SUBSCRIPTION: ${{ secrets.ARM_SUBSCRIPTION_ID }}
         run: |
-          az login --service-principal -u $env:SPN_ID -p $env:SPN_SECRET --tenant $env:SPN_TENANT_ID
+          az login --service-principal -u "$env:SPN_ID" -p "$env:SPN_SECRET" --tenant "$env:SPN_TENANT_ID"
           terraform init
   
   terraform_apply:
@@ -118,8 +118,8 @@ jobs:
           SPN_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           SPN_SUBSCRIPTION: ${{ secrets.ARM_SUBSCRIPTION_ID }}
         run: |
-          az login --service-principal -u $env:SPN_ID -p $env:SPN_SECRET --tenant $env:SPN_TENANT_ID
-          terraform apply -auto-approve $env:SPN_ID $env:SPN_SECRET $env:SPN_TENANT_ID $env:SPN_SUBSCRIPTION
+          az login --service-principal -u "$env:SPN_ID" -p "$env:SPN_SECRET" --tenant "$env:SPN_TENANT_ID"
+          terraform apply -auto-approve "$env:SPN_ID" "$env:SPN_SECRET" "$env:SPN_TENANT_ID" "$env:SPN_SUBSCRIPTION"
             
       - name: Get Webhook URL from Terraform Output
         id: get_webhook_url
