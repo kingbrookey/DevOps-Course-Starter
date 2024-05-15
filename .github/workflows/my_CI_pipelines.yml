@@ -72,3 +72,47 @@ jobs:
       - name: Get webhook url and run curl command
         run: |
           curl -dH --fail -X POST '${{ secrets.WEBHOOK_URL }}'
+      
+  terraform_init:
+    name: Terraform Setup and Init
+    runs-on: ubuntu-latest
+    needs: [build, security_check]  # Wait for previous jobs to complete
+        
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: latest  # Use the latest version of Terraform   
+
+      - name: Log in to Azure using Service principal
+        run: az login --service-principal -u ${{ secrets.ARM_CLIENT_ID }} -p ${{ secrets.ARM_CLIENT_SECRET }} --tenant ${{ secrets.ARM_TENANT_ID }}
+
+      - name: Set Azure Subscription
+        run: |
+          az account set --subscription ${{ secrets.ARM_SUBSCRIPTION_ID }}
+
+      - name: Terraform Init
+        run: terraform init       
+   
+  deploy:
+    name: Deploy Infrastructure
+    needs: [terraform_init]
+    runs-on: ubuntu-latest
+        
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4   
+  
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -var="ARM_CLIENT_ID=${{ secrets.ARM_CLIENT_ID }}" -var="ARM_CLIENT_SECRET=${{ secrets.ARM_CLIENT_SECRET }}" -var="ARM_TENANT_ID=${{ secrets.ARM_TENANT_ID }}" -var="ARM_SUBSCRIPTION_ID=${{ secrets.ARM_SUBSCRIPTION_ID }}"
+            
+      - name: Get Webhook URL from Terraform Output
+        id: get_webhook_url
+        run: echo "::set-output name=webhook_url::$(terraform output -raw cd_webhook)"
+    
+      - name: Trigger Deployment via Webhook
+        run: |
+          curl -dH -X POST "${{ steps.get_webhook_url.outputs.webhook_url }}"
