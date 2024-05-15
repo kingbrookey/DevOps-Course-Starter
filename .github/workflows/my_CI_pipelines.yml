@@ -71,8 +71,8 @@ jobs:
       
       - name: Get webhook url and run curl command
         run: |
-          curl -dH --fail -X POST '${{ secrets.WEBHOOK_URL }}'
-      
+          curl -dH --fail -X POST "${{ secrets.WEBHOOK_URL }}"
+
   terraform_init:
     name: Terraform Setup and Init
     runs-on: ubuntu-latest
@@ -88,14 +88,16 @@ jobs:
           terraform_version: latest  # Use the latest version of Terraform   
 
       - name: Log in to Azure using Service principal
-        run: az login --service-principal -u ${{ secrets.ARM_CLIENT_ID }} -p ${{ secrets.ARM_CLIENT_SECRET }} --tenant ${{ secrets.ARM_TENANT_ID }}
-
-      - name: Set Azure Subscription
+        shell: pwsh
+        env:
+          SPN_ID: ${{ secrets.ARM_CLIENT_ID }}
+          SPN_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          SPN_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          SPN_SUBSCRIPTION: ${{ secrets.ARM_SUBSCRIPTION_ID }}  
         run: |
-          az account set --subscription ${{ secrets.ARM_SUBSCRIPTION_ID }}
-
-      - name: Terraform Init
-        run: terraform init       
+          az login --service-principal -u "$env:SPN_ID" -p "$env:SPN_SECRET" --tenant "$env:SPN_TENANT_ID"
+          az account set --subscription "$env:SPN_SUBSCRIPTION"
+          terraform init         
    
   deploy:
     name: Deploy Infrastructure
