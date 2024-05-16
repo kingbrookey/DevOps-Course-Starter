@@ -73,58 +73,36 @@ jobs:
         run: |
           curl -dH --fail -X POST "${{ secrets.WEBHOOK_URL }}"
 
-  terraform_init:
-    name: Terraform Setup and Init
-    runs-on: ubuntu-latest
-    needs: [build, security_check]  # Wait for previous jobs to complete
-    steps:
-      - name: Checkout Code Repository
-        uses: actions/checkout@v2
-  
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: latest
-  
-      - name: Log in to Azure using Service principal
-        shell: bash
-        env:
-          SPN_ID: ${{ secrets.ARM_CLIENT_ID }}
-          SPN_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          SPN_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-          SPN_SUBSCRIPTION: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        run: |
-          az login --service-principal -u "$SPN_ID" -p "$SPN_SECRET" --tenant "$SPN_TENANT_ID"
-          terraform init
-  
-  terraform_apply:
-    name: Terraform Apply
-    runs-on: ubuntu-latest
-    needs: terraform_init
-    steps:
-      - name: Checkout Code Repository
-        uses: actions/checkout@v2
-  
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: latest
-  
-      - name: Log in to Azure using Service principal
-        shell: bash
-        env:
-          SPN_ID: ${{ secrets.ARM_CLIENT_ID }}
-          SPN_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          SPN_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-          SPN_SUBSCRIPTION: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        run: |
-          az login --service-principal -u "$SPN_ID" -p "$SPN_SECRET" --tenant "$SPN_TENANT_ID"
-          terraform apply -auto-approve "$SPN_ID" "$SPN_SECRET" "$SPN_TENANT_ID" "$SPN_SUBSCRIPTION"
+  terraform_job:
+      name: Terraform Setup, Init, and Apply
+      runs-on: ubuntu-latest
+      needs: [build, security_check]  # Wait for previous jobs to complete
+      env:
+        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+        ARM_CLIENT_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        ARM_CLIENT_SUBSCRIPTION: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      steps:
+        - name: Checkout Code Repository
+          uses: actions/checkout@v2
+
+        - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v1
+          with:
+            terraform_version: latest
+
+        - name: Terraform Init
+          run: |
+            terraform init
+
+        - name: Terraform Apply
+          run: |
+            terraform apply -auto-approve
             
-      - name: Get Webhook URL from Terraform Output
-        id: get_webhook_url
-        run: echo "::set-output name=webhook_url::$(terraform output -raw cd_webhook)"
-      
-      - name: Trigger Deployment via Webhook
-        run: |
-          curl -dH -X POST "${{ steps.get_webhook_url.outputs.webhook_url }}"
+        - name: Get Webhook URL from Terraform Output
+          id: get_webhook_url
+          run: echo "::set-output name=webhook_url::$(terraform output -raw cd_webhook)"
+          
+        - name: Trigger Deployment via Webhook
+          run: |
+            curl -dH -X POST "${{ steps.get_webhook_url.outputs.webhook_url }}"         
