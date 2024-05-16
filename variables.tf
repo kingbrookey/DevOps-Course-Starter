@@ -2,7 +2,7 @@ variable "TF_VAR_API_KEY" {
   description = "API key for To-do application"
 }
 
-variable "API_TOKEN" {
+variable "TF_VAR_API_TOKEN" {
   description = "API token for To-do application"
 }
 variable "database_password" {
