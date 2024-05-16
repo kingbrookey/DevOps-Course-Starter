@@ -5,27 +5,27 @@ variable "TF_VAR_API_KEY" {
 variable "TF_VAR_API_TOKEN" {
   description = "API token for To-do application"
 }
-variable "database_password" {
+variable "TF_VAR_database_password" {
   description = "Database password"
 }
 
-variable "mongodb_connectionstring" {
+variable "TF_VAR_mongodb_connectionstring" {
   description = "MongoDB Connection string"
 }
 
-variable "BOARD_ID" {
+variable "TF_VAR_BOARD_ID" {
   description = "ID for To do app board"
 }
 
-variable "DOING_LIST_ID" {
+variable "TF_VAR_DOING_LIST_ID" {
   description = "ID for Doing list on To do app board"
 }
 
-variable "DONE_LIST_ID" {
+variable "TF_VAR_DONE_LIST_ID" {
   description = "ID for Done list on To do app board"
 }
 
-variable "TO_DO_LIST_ID" {
+variable "TF_VAR_TO_DO_LIST_ID" {
   description = "ID for To do list on To do app board"
 }
 
