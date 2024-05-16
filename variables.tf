@@ -1,4 +1,4 @@
-variable "API_KEY" {
+variable "TF_VAR_API_KEY" {
   description = "API key for To-do application"
 }
 
