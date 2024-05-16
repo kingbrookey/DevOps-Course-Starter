@@ -61,7 +61,7 @@ resource "azurerm_linux_web_app" "main" {
     "DONE_LIST_ID" = var.DONE_LIST_ID
     "FLASK_APP" = "todo_app/app"
     "FLASK_ENV" = "production"
-    "SECRET_KEY" = var.SECRET_KEY
+    "SECRET_KEY" = var.TF_VAR_SECRET_KEY
     "TO_DO_LIST_ID" = var.TO_DO_LIST_ID
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
     "WEBSITES_PORT" = "5000"

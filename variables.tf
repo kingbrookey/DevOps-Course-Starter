@@ -29,7 +29,7 @@ variable "TO_DO_LIST_ID" {
   description = "ID for To do list on To do app board"
 }
 
-variable "SECRET_KEY" {
+variable "TF_VAR_SECRET_KEY" {
   description = "Secret key for accessing To do app board"
 }
 
