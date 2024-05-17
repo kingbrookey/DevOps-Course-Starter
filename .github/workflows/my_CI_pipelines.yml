@@ -82,6 +82,19 @@ jobs:
         ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
         ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
         ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+        TF_VAR_API_KEY: ${{ secrets.TF_VAR_API_KEY }}
+        TF_VAR_API_TOKEN: ${{ secrets.TF_VAR_API_TOKEN }}
+        TF_VAR_database_password: ${{ secrets.TF_VAR_database_password }}
+        TF_VAR_mongodb_connectionstring: ${{ secrets.TF_VAR_mongodb_connectionstring }}
+        TF_VAR_BOARD_ID: ${{ secrets.TF_VAR_BOARD_ID }}
+        TF_VAR_DOING_LIST_ID: ${{ secrets.TF_VAR_DOING_LIST_ID }}
+        TF_VAR_DONE_LIST_ID: ${{ secrets.TF_VAR_DONE_LIST_ID }}
+        TF_VAR_TO_DO_LIST_ID: ${{ secrets.TF_VAR_TO_DO_LIST_ID }}
+        TF_VAR_SECRET_KEY: ${{ secrets.TF_VAR_SECRET_KEY }}
+        TF_VAR_client_id: ${{ secrets.TF_VAR_client_id }}
+        TF_VAR_client_secret: ${{ secrets.TF_VAR_client_secret }}
+        TF_VAR_tenant_id: ${{ secrets.TF_VAR_tenant_id }}
+        TF_VAR_subscription_id: ${{ secrets.TF_VAR_subscription_id }}
       steps:
         - name: Checkout Code Repository
           uses: actions/checkout@v2
