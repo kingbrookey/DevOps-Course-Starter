@@ -32,19 +32,3 @@ variable "TO_DO_LIST_ID" {
 variable "SECRET_KEY" {
   description = "Secret key for accessing To do app board"
 }
-
-variable "ARM_CLIENT_SECRET" {
-  description = "Client Secret key for Service principal"
-}
-
-variable "ARM_CLIENT_ID" {
-  description = "Client ID key for Service principal"
-}
-
-variable "ARM_TENANT_ID" {
-  description = "Tenant ID key for Service principal"
-}
-
-variable "ARM_SUBSCRIPTION_ID" {
-  description = "Subscription ID key for Service principal"
-}
