@@ -82,7 +82,7 @@ jobs:
         ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
         ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
         ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        API_KEY: ${{ secrets.API_KEY }}
+        TF_VAR_API_KEY: ${{ secrets.TF_VAR_API_KEY }}
         API_TOKEN: ${{ secrets.API_TOKEN }}
         TF_VAR_database_password: ${{ secrets.database_password }}
         TF_VAR_mongodb_connectionstring: ${{ secrets.mongodb_connectionstring }}
