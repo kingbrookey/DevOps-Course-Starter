@@ -110,6 +110,8 @@ jobs:
             
         - name: Trigger Deployment via Webhook
           run: |
-            WEBHOOK_URL=$(terraform output -raw webhook_url)
-            curl --fail -X POST "$WEBHOOK_URL"
-
+              WEBHOOK_URL=$(terraform output -raw webhook_url)
+              echo "WEBHOOK_URL=$WEBHOOK_URL" >> $GITHUB_ENV
+              echo "::add-mask::$WEBHOOK_URL"
+              curl --fail -X POST "$WEBHOOK_URL"
+          
