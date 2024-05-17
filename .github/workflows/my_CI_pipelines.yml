@@ -91,6 +91,7 @@ jobs:
         TF_VAR_DONE_LIST_ID: ${{ secrets.DONE_LIST_ID }}
         TF_VAR_TO_DO_LIST_ID: ${{ secrets.TO_DO_LIST_ID }}
         TF_VAR_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        TERRAFORMED_WEBHOOK_URL: ${{ secrets.TERRAFORMED_WEBHOOK_URL }}
       steps:
         - name: Checkout Code Repository
           uses: actions/checkout@v2
@@ -110,7 +111,5 @@ jobs:
             
         - name: Trigger Deployment via Webhook
           run: |
-              WEBHOOK_URL=$(terraform output -raw webhook_url)
-              echo "::add-mask::$WEBHOOK_URL"
-              curl -dH --fail -X POST "$WEBHOOK_URL"
+            curl -dH --fail -X POST "${{ secrets.TERRAFORMED_WEBHOOK_URL }}"
           
