@@ -52,7 +52,7 @@ resource "azurerm_linux_web_app" "main" {
   }
 
   app_settings = {
-    "API_KEY" = TF_VAR_API_KEY
+    "API_KEY" = var.API_KEY
     "API_TOKEN" = var.TF_VAR_API_TOKEN
     "BOARD_ID" = var.TF_VAR_BOARD_ID
     "DOCKER_REGISTRY_SERVER_URL" = "https://docker.io"
