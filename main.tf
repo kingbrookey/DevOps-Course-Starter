@@ -15,14 +15,10 @@ terraform {
 
 provider "azurerm" {
   features {}
-  client_id       = var.ARM_client_id
-  client_secret   = var.ARM_client_secret
-  tenant_id       = var.ARM_tenant_id
-  subscription_id = var.ARM_subscription_id
 }
 
 data "azurerm_resource_group" "main" {
-  name     = "Cohort28_KinEbr_ProjectExercise"
+  name = "Cohort28_KinEbr_ProjectExercise"
 }
 
 resource "azurerm_service_plan" "main" {
@@ -40,40 +36,39 @@ resource "azurerm_linux_web_app" "main" {
   service_plan_id     = azurerm_service_plan.main.id
 
   site_config {
-    always_on = false
+    always_on  = false
     ftps_state = "FtpsOnly"
     http2_enabled = true
 
     application_stack {
       docker_image     = "kingbrookey/my-todo-app-mod8"
       docker_image_tag = "latest"
-      
     }
   }
 
   app_settings = {
-    "API_KEY" = var.API_KEY
-    "API_TOKEN" = var.API_TOKEN
-    "BOARD_ID" = var.BOARD_ID
-    "DOCKER_REGISTRY_SERVER_URL" = "https://docker.io"
-    "DOING_LIST_ID" = var.DOING_LIST_ID
-    "DONE_LIST_ID" = var.DONE_LIST_ID
-    "FLASK_APP" = "todo_app/app"
-    "FLASK_ENV" = "production"
-    "SECRET_KEY" = var.SECRET_KEY
-    "TO_DO_LIST_ID" = var.TO_DO_LIST_ID
+    "API_KEY"                          = var.API_KEY
+    "API_TOKEN"                        = var.API_TOKEN
+    "BOARD_ID"                         = var.BOARD_ID
+    "DOCKER_REGISTRY_SERVER_URL"       = "https://docker.io"
+    "DOING_LIST_ID"                    = var.DOING_LIST_ID
+    "DONE_LIST_ID"                     = var.DONE_LIST_ID
+    "FLASK_APP"                        = "todo_app/app"
+    "FLASK_ENV"                        = "production"
+    "SECRET_KEY"                       = var.SECRET_KEY
+    "TO_DO_LIST_ID"                    = var.TO_DO_LIST_ID
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
-    "WEBSITES_PORT" = "5000"
+    "WEBSITES_PORT"                    = "5000"
   }
 
-    connection_string {
+  connection_string {
     name  = "Database"
     type  = "SQLServer"
     value = var.mongodb_connectionstring
   }
 
   client_affinity_enabled = true
-  https_only = true 
+  https_only              = true
 }
 
 resource "azurerm_cosmosdb_account" "db" {
@@ -110,7 +105,10 @@ resource "azurerm_cosmosdb_account" "db" {
     max_interval_in_seconds = 300
     max_staleness_prefix    = 100000
   }
-  lifecycle { prevent_destroy = true }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 
   geo_location {
     location          = "westus"

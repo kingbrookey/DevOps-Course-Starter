@@ -33,18 +33,18 @@ variable "SECRET_KEY" {
   description = "Secret key for accessing To do app board"
 }
 
-variable "ARM_client_secret" {
+variable "ARM_CLIENT_SECRET" {
   description = "Client Secret key for Service principal"
 }
 
-variable "ARM_client_id" {
+variable "ARM_CLIENT_ID" {
   description = "Client ID key for Service principal"
 }
 
-variable "ARM_tenant_id" {
+variable "ARM_TENANT_ID" {
   description = "Tenant ID key for Service principal"
 }
 
-variable "ARM_subscription_id" {
+variable "ARM_SUBSCRIPTION_ID" {
   description = "Subscription ID key for Service principal"
 }
