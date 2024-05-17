@@ -111,7 +111,7 @@ jobs:
         - name: Get Webhook URL from Terraform Output
           id: get_webhook_url
           run: |
-              echo "WEBHOOK_URL=$(terraform output -raw cd_webhook)" >> $GITHUB_ENV
+              echo "WEBHOOK_URL=$(terraform output -raw webhook_url)" >> $GITHUB_ENV
               
         - name: Trigger Deployment via Webhook
           run: |
