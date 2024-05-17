@@ -111,12 +111,4 @@ jobs:
             
         - name: Trigger Deployment via Webhook
           run: |
-            curl -dH --fail -X POST "${{ secrets.TERRAFORMED_WEBHOOK_URL }}"
-        
-        - name: Get Webhook URL from Terraform Output
-          id: get_webhook_url
-          run: echo "::set-output name=webhook_url::$(terraform output -raw webhook_url)"
-          
-        - name: Trigger Deployment via Webhook
-          run: |
-            curl -dH -X POST "${{ steps.get_webhook_url.outputs.webhook_url }}"   
+            curl -dH --fail -X POST "${{ secrets.WEBHOOK_URL }}"
