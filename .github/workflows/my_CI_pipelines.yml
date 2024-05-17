@@ -110,9 +110,8 @@ jobs:
             
         - name: Get Webhook URL from Terraform Output
           id: get_webhook_url
-          run: |
-              echo "WEBHOOK_URL=$(terraform output -raw webhook_url)" >> $GITHUB_ENV
-              
+          run: echo "::set-output name=webhook_url::$(terraform output -raw webhook_url)"
+        
         - name: Trigger Deployment via Webhook
           run: |
-              curl --fail -X POST "${{ env.WEBHOOK_URL }}"  
+            curl -dH -X POST "${{ steps.get_webhook_url.outputs.webhook_url }}"   
