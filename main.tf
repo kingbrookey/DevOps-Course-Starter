@@ -15,10 +15,10 @@ terraform {
 
 provider "azurerm" {
   features {}
-  client_id       = var.TF_VAR_client_id
-  client_secret   = var.TF_VAR_client_secret
-  tenant_id       = var.TF_VAR_tenant_id
-  subscription_id = var.TF_VAR_subscription_id
+  client_id       = var.ARM_client_id
+  client_secret   = var.ARM_client_secret
+  tenant_id       = var.ARM_tenant_id
+  subscription_id = var.ARM_subscription_id
 }
 
 data "azurerm_resource_group" "main" {
@@ -53,15 +53,15 @@ resource "azurerm_linux_web_app" "main" {
 
   app_settings = {
     "API_KEY" = var.API_KEY
-    "API_TOKEN" = var.TF_VAR_API_TOKEN
-    "BOARD_ID" = var.TF_VAR_BOARD_ID
+    "API_TOKEN" = var.API_TOKEN
+    "BOARD_ID" = var.BOARD_ID
     "DOCKER_REGISTRY_SERVER_URL" = "https://docker.io"
-    "DOING_LIST_ID" = var.TF_VAR_DOING_LIST_ID
-    "DONE_LIST_ID" = var.TF_VAR_DONE_LIST_ID
+    "DOING_LIST_ID" = var.DOING_LIST_ID
+    "DONE_LIST_ID" = var.DONE_LIST_ID
     "FLASK_APP" = "todo_app/app"
     "FLASK_ENV" = "production"
-    "SECRET_KEY" = var.TF_VAR_SECRET_KEY
-    "TO_DO_LIST_ID" = var.TF_VAR_TO_DO_LIST_ID
+    "SECRET_KEY" = var.SECRET_KEY
+    "TO_DO_LIST_ID" = var.TO_DO_LIST_ID
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
     "WEBSITES_PORT" = "5000"
   }
@@ -69,7 +69,7 @@ resource "azurerm_linux_web_app" "main" {
     connection_string {
     name  = "Database"
     type  = "SQLServer"
-    value = var.TF_VAR_mongodb_connectionstring
+    value = var.mongodb_connectionstring
   }
 
   client_affinity_enabled = true
