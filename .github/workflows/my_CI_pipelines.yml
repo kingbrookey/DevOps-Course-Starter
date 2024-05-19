@@ -71,7 +71,7 @@ jobs:
       
       - name: Get webhook url and run curl command
         run: |
-          curl -dH --fail -X POST "${{ secrets.WEBHOOK_URL }}"
+          curl -dH --fail -X POST "${{ secrets.TERRAFORMED_WEBHOOK_URL }}"
 
   terraform_job:
       name: Terraform Setup, Init, and Apply
@@ -108,7 +108,3 @@ jobs:
         - name: Terraform Apply
           run: |
             terraform apply -auto-approve
-        
-        - name: Get webhook url and run curl command
-          run: |
-            curl -dH --fail -X POST "${{ secrets.TERRAFORMED_WEBHOOK_URL }}"
