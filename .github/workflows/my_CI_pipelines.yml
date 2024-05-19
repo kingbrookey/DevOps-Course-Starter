@@ -108,7 +108,7 @@ jobs:
         - name: Terraform Apply
           run: |
             terraform apply -auto-approve
-            
-        - name: Trigger Deployment via Webhook
+        
+        - name: Get webhook url and run curl command
           run: |
-            curl -dH --fail -X POST "${{ secrets.WEBHOOK_URL }}"
+            curl -dH --fail -X POST "${{ secrets.TERRAFORMED_WEBHOOK_URL }}"
