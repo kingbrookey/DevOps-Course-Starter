@@ -71,10 +71,7 @@ jobs:
       
       - name: Get webhook url and run curl command
         run: |
-          curl -dH --fail -X POST "${{ secrets.TERRAFORMED_WEBHOOK_URL }}"                
-          -H "Authorization: Bearer ${{ secrets.TF_VAR_API_KEY}}" \
-          -H "Content-Type: application/json" \
-          -d '{}'
+          curl -dH --fail -X POST "${{ secrets.WEBHOOK_URL }}"                
 
   terraform_job:
     name: Terraform Setup, Init, and Apply
