@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     azurerm = {
-      source = "hashicorp/azurerm"
+      source  = "hashicorp/azurerm"
       version = ">= 3.8"
     }
   }
@@ -36,13 +36,12 @@ resource "azurerm_linux_web_app" "main" {
   service_plan_id     = azurerm_service_plan.main.id
 
   site_config {
-    always_on  = false
-    ftps_state = "FtpsOnly"
-    http2_enabled = true
+    always_on      = false
+    ftps_state     = "FtpsOnly"
+    http2_enabled  = true
 
     application_stack {
-      docker_image     = "kingbrookey/my-todo-app-mod8"
-      docker_image_tag = "latest"
+      docker_image_name =  "kingbrookey/my-todo-app-mod8:latest"
     }
   }
 
@@ -63,8 +62,8 @@ resource "azurerm_linux_web_app" "main" {
 
   connection_string {
     name  = "Database"
-    type  = "SQLServer"
-    value = var.mongodb_connectionstring
+    type  = "Custom"
+    value = azurerm_cosmosdb_account.db.connection_strings[0]
   }
 
   client_affinity_enabled = true
@@ -119,5 +118,10 @@ resource "azurerm_cosmosdb_account" "db" {
 resource "azurerm_cosmosdb_mongo_database" "database" {
   name                = "terraformed-cosmos-mongo-db-mod12"
   resource_group_name = data.azurerm_resource_group.main.name
-  account_name        = "terraformed-cosmos-db-mod12"
+  account_name        = azurerm_cosmosdb_account.db.name
+}
+
+output "cosmosdb_connection_string" {
+  value = azurerm_cosmosdb_account.db.connection_strings[0]
+  sensitive = true
 }

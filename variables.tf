@@ -1,16 +1,20 @@
 variable "API_KEY" {
   description = "API key for To-do application"
+  sensitive = true  
 }
 
 variable "API_TOKEN" {
   description = "API token for To-do application"
+  sensitive = true  
 }
 variable "database_password" {
   description = "Database password"
+  sensitive = true  
 }
 
 variable "mongodb_connectionstring" {
   description = "MongoDB Connection string"
+  sensitive = true  
 }
 
 variable "BOARD_ID" {
@@ -31,4 +35,5 @@ variable "TO_DO_LIST_ID" {
 
 variable "SECRET_KEY" {
   description = "Secret key for accessing To do app board"
+  sensitive = true  
 }

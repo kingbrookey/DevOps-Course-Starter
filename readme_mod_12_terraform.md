@@ -75,7 +75,7 @@ terraform init
 ```
 
 ## Create a terraform.tfvars File: 
-Create a terraform.tfvars file to provide values for the variables defined in variables.tf. You can use the terraform.tfvars.example template provided and rename it to terraform.tfvars.
+Create a terraform.tfvars file to provide values for the variables defined in variables.tf.
 
 ```bash
 # terraform.tfvars.example
