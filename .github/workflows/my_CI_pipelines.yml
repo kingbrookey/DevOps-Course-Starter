@@ -72,7 +72,7 @@ jobs:
       - name: Get webhook url and run curl command
         run: |
           curl -dH --fail -X POST "${{ secrets.TERRAFORMED_WEBHOOK_URL }}"                
-          -H "Authorization: Bearer ${{ secrets.TF_VAR_API_TOKEN}}" \
+          -H "Authorization: Bearer ${{ secrets.TF_VAR_API_KEY}}" \
           -H "Content-Type: application/json" \
           -d '{}'
 
