@@ -18,7 +18,7 @@ Before you begin, make sure you have the following:
 First, install the necessary Python package for integrating with Loggly. Open your terminal or command prompt and run:
 
 ```bash
-pip install loggly-python-handler
+poetry add loggly-python-handler
 ```
 
 ## Step 2: Add Loggly Handler in Your Application

@@ -24,7 +24,6 @@ COPY pyproject.toml poetry.lock /app/
 RUN /venv/bin/pip install poetry
 RUN /venv/bin/poetry install
 RUN /venv/bin/poetry add gunicorn
-RUN /venv/bin/poetry add loggly-python-handler
 
 # Copy the entire application code
 COPY . /app/

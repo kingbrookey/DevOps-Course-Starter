@@ -41,3 +41,6 @@ variable "LOGGLY_TOKEN" {
   description = "Token for loggly application"
   sensitive = true  
 }
+variable "LOG_LEVEL" {
+  description = "Log level for capturing logs on To do app"
+}

@@ -1,7 +1,6 @@
 import os
 import logging
 import logging.config
-import loggly.handlers
 import time
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for
@@ -11,7 +10,6 @@ from todo_app.data.items import ItemService
 from loggly.handlers import HTTPSHandler
 from logging import Formatter
 
-logging.config.fileConfig('python.conf')
 logging.Formatter.converter = time.gmtime
 logger = logging.getLogger('myLogger')
 
@@ -20,7 +18,6 @@ logger.info('Test log')
 
 def create_app():
     app = Flask(__name__)
-    load_dotenv()
     app.config.from_object(Config())
 
     # Set up logging
