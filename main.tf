@@ -58,7 +58,7 @@ resource "azurerm_linux_web_app" "main" {
     "TO_DO_LIST_ID"                    = var.TO_DO_LIST_ID
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
     "WEBSITES_PORT"                    = "5000"
-    "LOGGLY_TOKEN"                     = var.LOGGLY_TOKEN
+   
   }
 
   connection_string {
