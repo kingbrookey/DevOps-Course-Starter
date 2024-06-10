@@ -37,10 +37,3 @@ variable "SECRET_KEY" {
   description = "Secret key for accessing To do app board"
   sensitive = true  
 }
-variable "LOGGLY_TOKEN" {
-  description = "Token for loggly application"
-  sensitive = true  
-}
-variable "LOG_LEVEL" {
-  description = "Log level for capturing logs on To do app"
-}
