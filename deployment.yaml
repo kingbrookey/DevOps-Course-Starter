@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: module-14
+spec:
+  selector:
+    matchLabels:
+      app: module-14
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: module-14
+    spec:
+      containers:
+        - name: my-todo-app-mod8
+          image: my-todo-app-mod8:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+          env:
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mod-14-secrets
+                  key: API_KEY
+            - name: API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: mod-14-secrets
+                  key: API_TOKEN
+            - name: database_password
+              valueFrom:
+                secretKeyRef:
+                  name: mod-14-secrets
+                  key: database_password
+            - name: mongodb_connectionstring
+              valueFrom:
+                secretKeyRef:
+                  name: mod-14-secrets
+                  key: mongodb_connectionstring
+            - name: MONGODB_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: mod-14-secrets
+                  key: MONGODB_CONNECTION_STRING
+            - name: LOGGLY_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: mod-14-secrets
+                  key: LOGGLY_TOKEN
+            - name: ARM_SUBSCRIPTION_ID
+              valueFrom:
+                secretKeyRef:
+                  name: mod-14-secrets
+                  key: ARM_SUBSCRIPTION_ID
+            - name: ARM_TENANT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: mod-14-secrets
+                  key: ARM_TENANT_ID
+            - name: ARM_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: mod-14-secrets
+                  key: ARM_CLIENT_ID
+            - name: ARM_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: mod-14-secrets
+                  key: ARM_CLIENT_SECRET
+            - name: DATABASE_NAME
+              value: "terraformed-cosmos-db-mod12"
+            - name: BOARD_ID
+              value: "64a2a69fcc4da212f15c6cee"
+            - name: DOING_LIST_ID
+              value: "64a2a69fcc4da212f15c6cf6"
+            - name: DONE_LIST_ID
+              value: "64a2a69fcc4da212f15c6cf7"
+            - name: TO_DO_LIST_ID
+              value: "64a2a69fcc4da212f15c6cf5"
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mod-14-secrets
+                  key: SECRET_KEY
+            - name: FLASK_APP
+              value: todo_app/app
+          resources:
+            requests:
+              memory: "0.5Gi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"

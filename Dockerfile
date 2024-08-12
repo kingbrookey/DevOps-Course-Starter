@@ -35,17 +35,17 @@ FROM base as production
 ENV FLASK_ENV=production
 
 # Configure for production (use Gunicorn)
-ENTRYPOINT ["/venv/bin/poetry", "run", "gunicorn", "--bind", "0.0.0.0:5000", "todo_app.app:create_app()"]
+ENTRYPOINT ["/venv/bin/poetry", "run", "gunicorn", "--bind", "0.0.0.0:80", "todo_app.app:create_app()"]
 
 # Expose port 5000 for documentation
-EXPOSE 5000
+EXPOSE 80
 
 # Development stage for the final image
 FROM base as development
 
 # Set environment variables
 ENV FLASK_ENV=development
-ENTRYPOINT [ "/venv/bin/poetry", "run", "flask", "run", "--host", "0.0.0.0" ] move
+ENTRYPOINT [ "/venv/bin/poetry", "run", "flask", "run", "--host", "0.0.0.0:80" ] move
 
 # Testing stage
 FROM base as test
