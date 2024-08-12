@@ -97,7 +97,7 @@ celerybeat-schedule
 /site
 
 # secrets file
-secret.yaml
+secrets.yaml
 
 # mypy
 .mypy_cache/
