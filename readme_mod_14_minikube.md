@@ -12,14 +12,18 @@ This README provides step-by-step instructions for setting up Minikube and runni
 
 ## Setup Instructions
 
+
+3. **Start Minikube:**
 ```bash
-# 1. Start Minikube
 minikube start
+```
 
-# 2. Verify Minikube Installation
+4. **Verify Minikube Installation:**
+```bash
 kubectl cluster-info
+```
 
-## Create the Kubernetes Secrets
+### Create the Kubernetes Secrets
 Save the following YAML content as secrets.yaml:
 
 ```bash
@@ -49,7 +53,7 @@ Replace the placeholders (<BASE64_ENCODED_...>) with the actual base64-encoded v
 kubectl apply -f secrets.yaml
 ```
 
-## Create the Deployment
+### Create the Deployment
 Save the following YAML content as deployment.yaml:
 
 ```bash
@@ -89,11 +93,6 @@ spec:
                 secretKeyRef:
                   name: mod-14-secrets
                   key: database_password
-            - name: mongodb_connectionstring
-              valueFrom:
-                secretKeyRef:
-                  name: mod-14-secrets
-                  key: mongodb_connectionstring
             - name: MONGODB_CONNECTION_STRING
               valueFrom:
                 secretKeyRef:
@@ -127,13 +126,13 @@ spec:
             - name: DATABASE_NAME
               value: "terraformed-cosmos-db-mod12"
             - name: BOARD_ID
-              value: "64a2a69fcc4da212f15c6cee"
+              value: "<enter ID here>"
             - name: DOING_LIST_ID
-              value: "64a2a69fcc4da212f15c6cf6"
+              value: "<enter ID here>"
             - name: DONE_LIST_ID
-              value: "64a2a69fcc4da212f15c6cf7"
+              value: "<enter ID here>"
             - name: TO_DO_LIST_ID
-              value: "64a2a69fcc4da212f15c6cf5"
+              value: "<enter ID here>"
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
@@ -157,7 +156,7 @@ Apply the deployment with
 kubectl apply -f deployment.yaml
 ```
 
-## Expose the Service
+### Expose the Service
 Save the following YAML content as service.yaml:
 
 ```bash
@@ -182,7 +181,7 @@ kubectl apply -f service.yaml
 
 ```
 
-## Access the Application
+### Access the Application
 After each deployment, run the command below to link up our minikube Service with a port on localhost.
 
 ```bash
@@ -196,19 +195,19 @@ minikube service module-14-service --url
 ```
 
 ## Troubleshooting
-# Check Pod Status
+### Check Pod Status
 ```bash
 kubectl get pods
 ```
 
 
-# Check Logs
+### Check Logs
 ```bash
 kubectl logs <pod-name>
 ```
 
 
-# Access Minikube Dashboard
+### Access Minikube Dashboard
 ```bash
 minikube dashboard
 ```
