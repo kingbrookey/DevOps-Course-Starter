@@ -1,4 +1,4 @@
-# To-Do App Setup with Minikube
+# To-Do App setup with Minikube
 
 This README provides step-by-step instructions for setting up Minikube and running the To-Do app on it.
 
