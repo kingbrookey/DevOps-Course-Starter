@@ -22,8 +22,7 @@ minikube start
 ```bash
 kubectl cluster-info
 ```
-
-### Create the Kubernetes Secrets
+5. **Create the Kubernetes Secrets:**
 Save the following YAML content as secrets.yaml:
 
 ```bash
@@ -53,7 +52,7 @@ Replace the placeholders (<BASE64_ENCODED_...>) with the actual base64-encoded v
 kubectl apply -f secrets.yaml
 ```
 
-### Create the Deployment
+6. **Create the Deployment:**
 Save the following YAML content as deployment.yaml:
 
 ```bash
@@ -150,13 +149,13 @@ spec:
 
 ```
 
-Apply the deployment with
+7. **Apply the deployment with:**
 
 ```bash
 kubectl apply -f deployment.yaml
 ```
 
-### Expose the Service
+8. **Expose the Service:**
 Save the following YAML content as service.yaml:
 
 ```bash
@@ -175,24 +174,20 @@ spec:
 
 ```
 
-Apply the service with
+9. **Apply the service with:**
 ```bash
 kubectl apply -f service.yaml
 
 ```
 
-### Access the Application
+10. **Access the Application:**
 After each deployment, run the command below to link up our minikube Service with a port on localhost.
 
 ```bash
 kubectl port-forward service/module-14 7080:80
 ```
+Open **http://localhost:7080/** in a browser to view the application.
 
-Open http://localhost:7080/ in a browser to view the application.
-
-```bash
-minikube service module-14-service --url
-```
 
 ## Troubleshooting
 ### Check Pod Status
@@ -205,7 +200,6 @@ kubectl get pods
 ```bash
 kubectl logs <pod-name>
 ```
-
 
 ### Access Minikube Dashboard
 ```bash
