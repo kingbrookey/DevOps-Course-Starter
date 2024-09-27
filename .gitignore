@@ -96,6 +96,9 @@ celerybeat-schedule
 # mkdocs documentation
 /site
 
+# secrets file
+secrets.yaml
+
 # mypy
 .mypy_cache/
 .dmypy.json

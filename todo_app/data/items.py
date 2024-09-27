@@ -10,7 +10,7 @@ class Item:
 class ItemService:
     def __init__(self, mongodb_connection_string, database_name):
         self.client = pymongo.MongoClient(mongodb_connection_string)
-        self.db = self.client[database_name]
+        self.db = self.client[str(database_name)]
         self.collection = self.db['items']
 
     def fetch_todo_items(self, list_name):
